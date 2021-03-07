@@ -1649,6 +1649,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01dd9fd93d43e7442b6d6fd09e02b92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 6136070561694183802, guid: 61cb04d3ca4566d4d9f122972d7502be,
+    type: 3}
+  ammo: 5
+  ammoUIImage: {fileID: 1285903544834038961, guid: b5016fb2bcab36947831e6852164e66f,
+    type: 3}
+  ammoLayoutGroup: {fileID: 2070581286}
+  cowboyArmAnimator: {fileID: 1608311592}
+  firePoint: {fileID: 1693573255}
+  cameraShake: {fileID: 519420030}
+  poolSize: 10
 --- !u!1 &1373553812
 GameObject:
   m_ObjectHideFlags: 0
@@ -2018,6 +2028,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6ad66738462a8e478c81d01460d8a91, type: 3}
+--- !u!4 &1693573255 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6706211061235964253, guid: 662d17b5c27080543aa542a20a1a7d6a,
+    type: 3}
+  m_PrefabInstance: {fileID: 6706211061406977476}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1969579072
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2500,5 +2516,7 @@ PrefabInstance:
       propertyPath: ammoLayoutGroup
       value: 
       objectReference: {fileID: 2070581286}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6706211060251851587, guid: 662d17b5c27080543aa542a20a1a7d6a, type: 3}
+    - {fileID: 6706211061235964254, guid: 662d17b5c27080543aa542a20a1a7d6a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 662d17b5c27080543aa542a20a1a7d6a, type: 3}
