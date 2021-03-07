@@ -1,24 +1,30 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bandit : MonoBehaviour
 {
-    Rigidbody2D myRigidbody2D;
+    private Animator myAnimator;
 
     private void Start()
     {
-        myRigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+        myAnimator = gameObject.GetComponentInChildren<Animator>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Trigger");
         if (collision.CompareTag("Bullet"))
         {
-            //myRigidbody2D.isKinematic = false;
-            Destroy(gameObject);
+            myAnimator.Play("Death");
+            StartCoroutine(DeathCoroutine());
         }
     }
-    
+
+    private IEnumerator DeathCoroutine()
+    {
+        yield return new WaitForEndOfFrame(); //Wait for animator state to get updated
+
+        GetComponent<Collider2D>().enabled = false;
+        yield return new WaitForSeconds(myAnimator.GetCurrentAnimatorStateInfo(0).length);
+        gameObject.SetActive(false);
+    }
 }

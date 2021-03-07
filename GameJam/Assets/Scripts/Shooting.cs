@@ -1,12 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Shooting : MonoBehaviour
 {
-    [SerializeField] GameObject cowboyArm;
-    [SerializeField] Transform firePoint;
-    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] private GameObject cowboyArm;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private CameraShake cameraShake;
+    [SerializeField] private float duration;
+    [SerializeField] private float magnitude;
 
     void Update()
     {
@@ -22,5 +23,6 @@ public class Shooting : MonoBehaviour
     void Shoot()
     {
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        StartCoroutine(cameraShake.Shake(duration, magnitude));
     }
 }
