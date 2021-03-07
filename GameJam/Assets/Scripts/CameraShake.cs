@@ -1,10 +1,16 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraShake : MonoBehaviour
 {
-    public IEnumerator Shake(float duration, float magnitude)
+    [SerializeField] private float duration;
+    [SerializeField] private float magnitude;
+
+    public void Shake() => StartCoroutine(ShakeCoroutine(duration, magnitude));
+
+    public void Shake(float duration, float magnitude) => StartCoroutine(ShakeCoroutine(duration, magnitude));
+    
+    public IEnumerator ShakeCoroutine(float duration, float magnitude)
     {
         Vector3 originalPosition = transform.localPosition;
          

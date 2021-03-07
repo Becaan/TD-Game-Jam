@@ -5,6 +5,7 @@ public class Bandit : MonoBehaviour
 {
     private Animator myAnimator;
 
+    #region MonoBehaviour Events
     private void Start()
     {
         myAnimator = gameObject.GetComponentInChildren<Animator>();
@@ -18,6 +19,7 @@ public class Bandit : MonoBehaviour
             StartCoroutine(DeathCoroutine());
         }
     }
+    #endregion
 
     private IEnumerator DeathCoroutine()
     {

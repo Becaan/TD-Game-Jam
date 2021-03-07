@@ -747,6 +747,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db81a608ef12ed45bed2306aee3b79a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  duration: 0.15
+  magnitude: 0.05
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -1767,6 +1769,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1608311592 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6706211060952834071, guid: 662d17b5c27080543aa542a20a1a7d6a,
+    type: 3}
+  m_PrefabInstance: {fileID: 6706211061406977476}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1688561189
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2192,7 +2200,22 @@ PrefabInstance:
     - target: {fileID: 6706211061235964254, guid: 662d17b5c27080543aa542a20a1a7d6a,
         type: 3}
       propertyPath: magnitude
-      value: 0.04
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 6706211061235964254, guid: 662d17b5c27080543aa542a20a1a7d6a,
+        type: 3}
+      propertyPath: poolAmount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6706211061235964254, guid: 662d17b5c27080543aa542a20a1a7d6a,
+        type: 3}
+      propertyPath: cowboyArmAnimator
+      value: 
+      objectReference: {fileID: 1608311592}
+    - target: {fileID: 6706211061235964254, guid: 662d17b5c27080543aa542a20a1a7d6a,
+        type: 3}
+      propertyPath: poolSize
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 662d17b5c27080543aa542a20a1a7d6a, type: 3}

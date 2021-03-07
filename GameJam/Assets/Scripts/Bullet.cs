@@ -8,21 +8,18 @@ public class Bullet : MonoBehaviour
     private Rigidbody2D myRigidbody2D;
     private SpriteRenderer mySpriteRenderer;
 
-    private void Start()
+    private void Awake()
     {
-        myRigidbody2D = transform.GetComponent<Rigidbody2D>();
-        mySpriteRenderer = transform.GetComponent<SpriteRenderer>();
-        myRigidbody2D.velocity = transform.right * speed;
+        myRigidbody2D = GetComponent<Rigidbody2D>();
+        mySpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    void OnBecameInvisible() => DestroyBullet();
+    private void OnBecameInvisible() => DestroyBullet();
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Ground"))
-        {
             DestroyBullet();
-        }
     }
 
     public void DestroyBullet()
@@ -41,8 +38,8 @@ public class Bullet : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
 
         mySpriteRenderer.enabled = true;
-        myRigidbody2D.velocity = transform.right * speed;
-
         gameObject.SetActive(false);
     }
+
+    public void LaunchBullet() => myRigidbody2D.velocity = transform.right * speed;
 }
