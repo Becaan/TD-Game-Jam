@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Bandit : MonoBehaviour
 {
+    public const string DEATH_STATE_NAME = "Death";
+
     private Animator myAnimator;
 
     #region MonoBehaviour Events
@@ -15,7 +17,7 @@ public class Bandit : MonoBehaviour
     {
         if (collision.CompareTag("Bullet"))
         {
-            myAnimator.Play("Death");
+            myAnimator.Play(DEATH_STATE_NAME);
             StartCoroutine(DeathCoroutine());
         }
     }
@@ -26,7 +28,10 @@ public class Bandit : MonoBehaviour
         yield return new WaitForEndOfFrame(); //Wait for animator state to get updated
 
         GetComponent<Collider2D>().enabled = false;
+
         yield return new WaitForSeconds(myAnimator.GetCurrentAnimatorStateInfo(0).length);
+
         gameObject.SetActive(false);
+        LevelController.Instance.CheckForNextLevel();
     }
 }

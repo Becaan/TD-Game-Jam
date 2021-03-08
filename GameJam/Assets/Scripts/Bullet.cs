@@ -7,14 +7,19 @@ public class Bullet : MonoBehaviour
 
     private Rigidbody2D myRigidbody2D;
     private SpriteRenderer mySpriteRenderer;
+    private TrailRenderer myTrailRenderer;
 
     private void Awake()
     {
         myRigidbody2D = GetComponent<Rigidbody2D>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
+        myTrailRenderer = GetComponent<TrailRenderer>();
     }
 
-    private void OnBecameInvisible() => DestroyBullet();
+    private void OnBecameInvisible()
+    {
+        DestroyBullet();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -39,7 +44,22 @@ public class Bullet : MonoBehaviour
 
         mySpriteRenderer.enabled = true;
         gameObject.SetActive(false);
+
+        LevelController.Instance.CheckForNextLevel();
     }
 
-    public void LaunchBullet() => myRigidbody2D.velocity = transform.right * speed;
+    public void SetLauchVelocity() => myRigidbody2D.velocity = transform.right * speed;
+
+    public void PauseTrailForOneFrame() => StartCoroutine(PauseTrailForOneFrameCoroutine());
+
+    private IEnumerator PauseTrailForOneFrameCoroutine()
+    {
+        var trailTime = myTrailRenderer.time;
+        myTrailRenderer.time = 0.0f;
+
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForFixedUpdate();
+
+        myTrailRenderer.time = trailTime;
+    }
 }
