@@ -9,11 +9,12 @@ public class Mirror : MonoBehaviour
 
     private Animator mirrorAnimator;
 
+    #region MonoBehaviour Events
     private void Awake()
     {
         mirrorAnimator = GetComponentInChildren<Animator>();
     }
-
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Bullet"))
@@ -29,6 +30,7 @@ public class Mirror : MonoBehaviour
         bullet.transform.rotation = nextMirror.transform.rotation;
         bullet.SetLauchVelocity();
     }
+    #endregion
 
     private void PlayAnimation(string animationName) => mirrorAnimator.Play(animationName, 0, 0.0f);
 }

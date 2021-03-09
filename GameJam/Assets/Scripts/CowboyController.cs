@@ -18,6 +18,9 @@ public class CowboyController : MonoBehaviour
     [SerializeField] private GameObject ammoUIImage;
     [SerializeField] private Transform ammoLayoutGroup;
 
+    [SerializeField] private AudioSource gunShotAudio;
+    [SerializeField] private AudioSource EmptyGunAudio;
+
     [SerializeField] private Animator cowboyArmAnimator;
     [SerializeField] private Transform armPivotTransform;
     [SerializeField] private Transform firePoint;
@@ -84,7 +87,12 @@ public class CowboyController : MonoBehaviour
     private void Shoot()
     {
         if (ammo == 0)
+        {
+            EmptyGunAudio.Play();
             return;
+        }
+
+        gunShotAudio.Play();
 
         for (int i = 0; i < poolSize; i++)
         {
