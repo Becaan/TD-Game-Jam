@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 50451346660502090}
   - component: {fileID: 114633889287231304}
   - component: {fileID: 96600758760624200}
-  - component: {fileID: 5845259653350774792}
+  - component: {fileID: 61220575545770500}
   m_Layer: 8
   m_Name: Bullet
   m_TagString: Bullet
@@ -99,7 +99,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: 21f3670d02e4d964d9cde237eec78c7b, type: 2}
+  m_Material: {fileID: 6200000, guid: 3825181eb5f6c2847954148674a19357, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -221,7 +221,7 @@ TrailRenderer:
   m_MinVertexDistance: 0.05
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!61 &5845259653350774792
+--- !u!61 &61220575545770500
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -245,5 +245,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.2, y: 0.08311296}
+  m_Size: {x: 0.2, y: 0.12}
   m_EdgeRadius: 0

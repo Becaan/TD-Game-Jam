@@ -38,9 +38,11 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Vector2 newVelocity = Vector2.Reflect(lastVelocity, collision.GetContact(0).normal);
-        myRigidbody2D.velocity = newVelocity;
+        UpdateRotation();
+    }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
         UpdateRotation();
     }
 
