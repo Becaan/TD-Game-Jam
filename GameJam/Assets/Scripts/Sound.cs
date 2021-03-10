@@ -1,28 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Sound : MonoBehaviour
 {
-    [SerializeField] Button MuteButton;
-    [SerializeField] Sprite MuteSprite;
-    [SerializeField] Sprite UnMuteSprite;
+    public const string SOUND_CONTROLLER_PREFAB_PATH = "Prefabs/UI/Sound Control Canvas";
+
+    public static Sound Instance;
+
+    [SerializeField] private Button MuteButton;
+    [SerializeField] private Sprite MuteSprite;
+    [SerializeField] private Sprite UnMuteSprite;
 
     bool isMute;
 
-    private void Awake()
+    [RuntimeInitializeOnLoadMethod]
+    private static void Initialize()
+    {
+        Instance = Instantiate(Resources.Load<GameObject>(SOUND_CONTROLLER_PREFAB_PATH)).GetComponent<Sound>();
+    }
+
+    private void Start()
     {
         isMute = false;
-        Debug.Log(isMute);
+        DontDestroyOnLoad(gameObject);
     }
 
     public void Mute()
     {
         isMute = !isMute;
-
-        Debug.Log(isMute);
-
+        
         if (isMute == true)
             MuteButton.GetComponent<Image>().sprite = MuteSprite;
         else

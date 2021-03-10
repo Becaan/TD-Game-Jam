@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelController : MonoBehaviour
 {
@@ -46,7 +47,12 @@ public class LevelController : MonoBehaviour
 
     public void CheckForNextLevel()
     {
-        if(!AnyBanditAlive() || OutOfAmmo())
-            Debug.Log("Spreman za sledeci nivo");
+        if(!AnyBanditAlive())
+        {
+            int nextLevel = SceneManager.GetActiveScene().buildIndex + 1;
+            Fader.LevelLoad(nextLevel);
+        }
+        else if(OutOfAmmo())
+            Fader.LevelLoad(SceneManager.GetActiveScene().buildIndex);
     }
 }

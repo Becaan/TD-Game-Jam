@@ -2,9 +2,8 @@
 
 public class MainMenu : MonoBehaviour
 {
-    public void Quit()
+    public void PlayButtonClick()
     {
-        Debug.Log("Quit");
-        Application.Quit();
+        Fader.LevelLoad(1);
     }
 }

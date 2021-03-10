@@ -8,12 +8,21 @@ public class Bullet : MonoBehaviour
     private Rigidbody2D myRigidbody2D;
     private SpriteRenderer mySpriteRenderer;
     private TrailRenderer myTrailRenderer;
+    private Collider2D myCollider;
+
+    private Vector2 lastVelocity;
 
     private void Awake()
     {
         myRigidbody2D = GetComponent<Rigidbody2D>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         myTrailRenderer = GetComponent<TrailRenderer>();
+        myCollider = GetComponent<Collider2D>();
+    }
+
+    private void FixedUpdate()
+    {
+        lastVelocity = myRigidbody2D.velocity;
     }
 
     private void OnBecameInvisible()
@@ -27,11 +36,29 @@ public class Bullet : MonoBehaviour
             DestroyBullet();
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Vector2 newVelocity = Vector2.Reflect(lastVelocity, collision.GetContact(0).normal);
+        myRigidbody2D.velocity = newVelocity;
+
+        UpdateRotation();
+    }
+
+    public void UpdateRotation()
+    {
+        if (myRigidbody2D.velocity == Vector2.zero)
+            return;
+
+        Vector2 v = myRigidbody2D.velocity;
+        var angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
+
     public void DestroyBullet()
     {
         if (!gameObject.activeInHierarchy)
             return;
-
+        
         StartCoroutine(DestroyBulletCoroutine());
     }
 
@@ -39,11 +66,13 @@ public class Bullet : MonoBehaviour
     {
         mySpriteRenderer.enabled = false;
         myRigidbody2D.velocity = Vector2.zero;
+        myCollider.isTrigger = true;
 
         yield return new WaitForSeconds(1.0f);
 
         mySpriteRenderer.enabled = true;
         gameObject.SetActive(false);
+        myCollider.isTrigger = false;
 
         LevelController.Instance.CheckForNextLevel();
     }

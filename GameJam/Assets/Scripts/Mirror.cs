@@ -8,11 +8,13 @@ public class Mirror : MonoBehaviour
     [SerializeField] private Mirror nextMirror;
 
     private Animator mirrorAnimator;
+    private AudioSource myAudioSource;
 
     #region MonoBehaviour Events
     private void Awake()
     {
         mirrorAnimator = GetComponentInChildren<Animator>();
+        myAudioSource = GetComponent<AudioSource>();
     }
     
     private void OnTriggerEnter2D(Collider2D collision)
@@ -22,6 +24,8 @@ public class Mirror : MonoBehaviour
         
         PlayAnimation(SHRINK_STATE_NAME);
         nextMirror.PlayAnimation(EXPAND_STATE_NAME);
+
+        myAudioSource.Play();
 
         var bullet = collision.GetComponent<Bullet>();
         bullet.PauseTrailForOneFrame();

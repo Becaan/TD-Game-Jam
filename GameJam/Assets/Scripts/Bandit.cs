@@ -3,13 +3,17 @@ using UnityEngine;
 
 public class Bandit : MonoBehaviour
 {
-    [SerializeField] private AudioSource KillEffect;
-
     public const string DEATH_STATE_NAME = "Death";
 
     private Animator myAnimator;
+    private AudioSource myAudioSource;
 
     #region MonoBehaviour Events
+    private void Awake()
+    {
+        myAudioSource = GetComponent<AudioSource>();
+    }
+
     private void Start()
     {
         myAnimator = gameObject.GetComponentInChildren<Animator>();
@@ -20,7 +24,7 @@ public class Bandit : MonoBehaviour
         if (collision.CompareTag("Bullet"))
         {
             myAnimator.Play(DEATH_STATE_NAME);
-            KillEffect.Play();
+            myAudioSource.Play();
             StartCoroutine(DeathCoroutine());
         }
     }

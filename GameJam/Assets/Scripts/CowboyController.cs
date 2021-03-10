@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CowboyController : MonoBehaviour
@@ -18,28 +19,29 @@ public class CowboyController : MonoBehaviour
     [SerializeField] private GameObject ammoUIImage;
     [SerializeField] private Transform ammoLayoutGroup;
 
-    [SerializeField] private AudioSource gunShotAudio;
-    [SerializeField] private AudioSource EmptyGunAudio;
-
+    [SerializeField] private Animator walkInAnimator;
     [SerializeField] private Animator cowboyArmAnimator;
     [SerializeField] private Transform armPivotTransform;
     [SerializeField] private Transform firePoint;
     [SerializeField] private CameraShake cameraShake;
 
+    [SerializeField] private AudioClip gunShotAudioClip;
+    [SerializeField] private AudioClip emptyGunAudioClip;
+
     [SerializeField] private int poolSize;
 
     public List<GameObject> Bullets { get; private set; }
+
+    private AudioSource myAudioSource;
 
     public static CowboyController Instance;
 
     #region MonoBehaviour Events
     private void Awake()
     {
-        if (Instance == null)
-            Instance = this;
+        Instance = this;
 
-        else if (Instance != this)
-            Destroy(gameObject);
+        myAudioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -61,7 +63,7 @@ public class CowboyController : MonoBehaviour
     private void Update()
     {
         ArmAiming();
-        ProcessInput();
+        ProcessMouseInput();
     }
     #endregion
 
@@ -78,8 +80,14 @@ public class CowboyController : MonoBehaviour
         }
     }
 
-    private void ProcessInput()
+    private void ProcessMouseInput()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+
+        if (walkInAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+            return;
+
         if (Input.GetMouseButtonDown(0))
             Shoot();
     }
@@ -88,11 +96,11 @@ public class CowboyController : MonoBehaviour
     {
         if (ammo == 0)
         {
-            EmptyGunAudio.Play();
+            myAudioSource.PlayOneShot(emptyGunAudioClip);
             return;
         }
 
-        gunShotAudio.Play();
+        myAudioSource.PlayOneShot(gunShotAudioClip);
 
         for (int i = 0; i < poolSize; i++)
         {
